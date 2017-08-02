@@ -13,7 +13,7 @@ class ShipController {
     this.BULLET_DELAY = configs.bullet_delay;
     this.delay = 0;
 
-    this.sprite.anchor = new Phaser.Point(0.5, 0,5);
+    this.sprite.anchor = new Phaser.Point(0.5, 0.5);
   }
 
   update() {
@@ -33,7 +33,5 @@ class ShipController {
     }
   }
 
-  fire(){
-    this.bullets.push(new BulletController(this.sprite.x, this.sprite.y, 'BulletType1.png'));
-  }
+  fire() {}
 }

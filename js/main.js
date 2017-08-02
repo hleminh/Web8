@@ -10,9 +10,9 @@ Nakama.configs = {
     x: 400,
     y: 400
   },
-  BULLET_SPEED : 500,
-  BULLET_DELAY : 200,
-  SHIP_SPEED : 300,
+  BULLET_SPEED: 500,
+  BULLET_DELAY: 200,
+  SHIP_SPEED: 300,
   BACKGROUND_SPEED: 5
 };
 
@@ -54,7 +54,7 @@ var create = function() {
   Nakama.playerGroup = Nakama.game.add.physicsGroup();
   Nakama.enemyGroup = Nakama.game.add.physicsGroup();
 
-  Nakama.players.push(new ShipController(Nakama.configs.P1_START_POSITION.x, Nakama.configs.P1_START_POSITION.y, 'Spaceship1-Player.png', {
+  Nakama.players.push(new ShipType1Controller(Nakama.configs.P1_START_POSITION.x, Nakama.configs.P1_START_POSITION.y, '-Player', {
     up: Phaser.Keyboard.UP,
     down: Phaser.Keyboard.DOWN,
     left: Phaser.Keyboard.LEFT,
@@ -65,7 +65,7 @@ var create = function() {
     bullet_delay: Nakama.configs.BULLET_DELAY
   }));
 
-  Nakama.players.push(new ShipController(Nakama.configs.P2_START_POSITION.x, Nakama.configs.P2_START_POSITION.y, 'Spaceship1-Partner.png', {
+  Nakama.players.push(new ShipType1Controller(Nakama.configs.P2_START_POSITION.x, Nakama.configs.P2_START_POSITION.y, '-Partner', {
     up: Phaser.Keyboard.W,
     down: Phaser.Keyboard.S,
     left: Phaser.Keyboard.A,
@@ -76,10 +76,11 @@ var create = function() {
     bullet_delay: Nakama.configs.BULLET_DELAY
   }));
 
-  Nakama.enemies.push(new EnemyController(Nakama.configs.P2_START_POSITION.x, Nakama.configs.P2_START_POSITION.y, 'EnemyType1.png', {
+  Nakama.enemies.push(new EnemyController(320, 200, 'EnemyType1.png', {
     ship_speed: Nakama.configs.SHIP_SPEED,
     bullet_speed: Nakama.configs.BULLET_SPEED,
-    bullet_delay: Nakama.configs.BULLET_DELAY
+    bullet_delay: Nakama.configs.BULLET_DELAY,
+    health: 2
   }));
 
 }
@@ -88,7 +89,18 @@ var create = function() {
 var update = function() {
   Nakama.background.y += Nakama.configs.BACKGROUND_SPEED;
   if (Nakama.background.y > 0) Nakama.background.y = -Nakama.configs.GAME_HEIGHT;
+
+  Nakama.game.physics.arcade.overlap(
+    Nakama.bulletGroup,
+    Nakama.enemyGroup,
+    onBulletHitEnemy
+  )
 }
 
 // before camera render (mostly for debug)
 var render = function() {}
+
+var onBulletHitEnemy = function(bulletSprite, enemySprite) {
+  bulletSprite.kill();
+  enemySprite.damage(1);
+}
