@@ -1,7 +1,19 @@
 var Nakama = {};
 Nakama.configs = {
   GAME_WIDTH: 640,
-  GAME_HEIGHT: 960
+  GAME_HEIGHT: 960,
+  P1_START_POSITION: {
+    x: 200,
+    y: 400
+  },
+  P2_START_POSITION: {
+    x: 400,
+    y: 400
+  },
+  BULLET_SPEED : 500,
+  BULLET_DELAY : 200,
+  SHIP_SPEED : 300,
+  BACKGROUND_SPEED: 5
 };
 
 window.onload = function() {
@@ -33,40 +45,48 @@ var create = function() {
   Nakama.game.physics.startSystem(Phaser.Physics.ARCADE);
   Nakama.keyboard = Nakama.game.input.keyboard;
 
+  Nakama.players = [];
+  Nakama.enemies = [];
+
   Nakama.background = Nakama.game.add.sprite(0, -Nakama.configs.GAME_HEIGHT, 'background');
 
-  Nakama.players = [];
+  Nakama.bulletGroup = Nakama.game.add.physicsGroup();
+  Nakama.playerGroup = Nakama.game.add.physicsGroup();
+  Nakama.enemyGroup = Nakama.game.add.physicsGroup();
 
-  Nakama.players.push(new ShipController(200, 400, 'Spaceship1-Player.png', {
+  Nakama.players.push(new ShipController(Nakama.configs.P1_START_POSITION.x, Nakama.configs.P1_START_POSITION.y, 'Spaceship1-Player.png', {
     up: Phaser.Keyboard.UP,
     down: Phaser.Keyboard.DOWN,
     left: Phaser.Keyboard.LEFT,
     right: Phaser.Keyboard.RIGHT,
     fire: Phaser.Keyboard.SPACEBAR,
-    ship_speed: 300,
-    bullet_speed: 500,
-    bullet_delay: 10
+    ship_speed: Nakama.configs.SHIP_SPEED,
+    bullet_speed: Nakama.configs.BULLET_SPEED,
+    bullet_delay: Nakama.configs.BULLET_DELAY
   }));
 
-  Nakama.players.push(new ShipController(400, 400, 'Spaceship1-Partner.png', {
+  Nakama.players.push(new ShipController(Nakama.configs.P2_START_POSITION.x, Nakama.configs.P2_START_POSITION.y, 'Spaceship1-Partner.png', {
     up: Phaser.Keyboard.W,
     down: Phaser.Keyboard.S,
     left: Phaser.Keyboard.A,
     right: Phaser.Keyboard.D,
     fire: Phaser.Keyboard.F,
-    ship_speed: 300,
-    bullet_speed: 500,
-    bullet_delay: 10
+    ship_speed: Nakama.configs.SHIP_SPEED,
+    bullet_speed: Nakama.configs.BULLET_SPEED,
+    bullet_delay: Nakama.configs.BULLET_DELAY
+  }));
+
+  Nakama.enemies.push(new EnemyController(Nakama.configs.P2_START_POSITION.x, Nakama.configs.P2_START_POSITION.y, 'EnemyType1.png', {
+    ship_speed: Nakama.configs.SHIP_SPEED,
+    bullet_speed: Nakama.configs.BULLET_SPEED,
+    bullet_delay: Nakama.configs.BULLET_DELAY
   }));
 
 }
 
 // update game state each frame
 var update = function() {
-  // for (var player of Nakama.players) {
-  //   player.update();
-  // }
-  Nakama.background.y += 5;
+  Nakama.background.y += Nakama.configs.BACKGROUND_SPEED;
   if (Nakama.background.y > 0) Nakama.background.y = -Nakama.configs.GAME_HEIGHT;
 }
 
