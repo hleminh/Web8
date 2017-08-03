@@ -29,9 +29,18 @@ class ShipController {
     } else this.sprite.body.velocity.y = 0;
     if (Nakama.keyboard.isDown(this.configs.fire) && Nakama.game.time.time > this.delay) {
       this.fire();
+      if (!(this instanceof ShipType3Controller)) {
+        this.delay = Nakama.game.time.time + this.BULLET_DELAY;
+      }
+    }
+    if (!Nakama.keyboard.isDown(this.configs.fire) && (this instanceof ShipType3Controller)) {
+      this.clearBullets();
       this.delay = Nakama.game.time.time + this.BULLET_DELAY;
     }
   }
 
   fire() {}
+
+  clearBullets() {}
+
 }

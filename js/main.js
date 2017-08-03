@@ -4,11 +4,11 @@ Nakama.configs = {
   GAME_HEIGHT: 960,
   P1_START_POSITION: {
     x: 200,
-    y: 400
+    y: 600
   },
   P2_START_POSITION: {
     x: 400,
-    y: 400
+    y: 600
   },
   BULLET_SPEED: 500,
   BULLET_DELAY: 200,
@@ -54,7 +54,7 @@ var create = function() {
   Nakama.playerGroup = Nakama.game.add.physicsGroup();
   Nakama.enemyGroup = Nakama.game.add.physicsGroup();
 
-  Nakama.players.push(new ShipType1Controller(Nakama.configs.P1_START_POSITION.x, Nakama.configs.P1_START_POSITION.y, '-Player', {
+  Nakama.players.push(new ShipType2Controller(Nakama.configs.P1_START_POSITION.x, Nakama.configs.P1_START_POSITION.y, '-Player', {
     up: Phaser.Keyboard.UP,
     down: Phaser.Keyboard.DOWN,
     left: Phaser.Keyboard.LEFT,
@@ -65,7 +65,7 @@ var create = function() {
     bullet_delay: Nakama.configs.BULLET_DELAY
   }));
 
-  Nakama.players.push(new ShipType1Controller(Nakama.configs.P2_START_POSITION.x, Nakama.configs.P2_START_POSITION.y, '-Partner', {
+  Nakama.players.push(new ShipType3Controller(Nakama.configs.P2_START_POSITION.x, Nakama.configs.P2_START_POSITION.y, '-Player', {
     up: Phaser.Keyboard.W,
     down: Phaser.Keyboard.S,
     left: Phaser.Keyboard.A,
@@ -101,6 +101,18 @@ var update = function() {
 var render = function() {}
 
 var onBulletHitEnemy = function(bulletSprite, enemySprite) {
-  bulletSprite.kill();
+  if (bulletSprite.frame != 11){ //BulletType3
+    bulletSprite.kill();
+  }
   enemySprite.damage(1);
+  if (enemySprite.alive == false) {
+    setTimeout(function() {
+      Nakama.enemies.push(new EnemyController(320, 200, 'EnemyType1.png', {
+        ship_speed: Nakama.configs.SHIP_SPEED,
+        bullet_speed: Nakama.configs.BULLET_SPEED,
+        bullet_delay: Nakama.configs.BULLET_DELAY,
+        health: 2
+      }));
+    }, 1000);
+  }
 }
