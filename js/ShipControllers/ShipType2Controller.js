@@ -3,7 +3,7 @@ class ShipType2Controller extends ShipController {
     super(x, y, `Spaceship2${spriteSuffix}.png`, configs);
 
     this.SHIP_SPEED = 200;
-    this.BULLET_DELAY = 300;
+    this.BULLET_DELAY = 700;
   }
 
   fire() {

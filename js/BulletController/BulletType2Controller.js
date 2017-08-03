@@ -10,6 +10,7 @@ class BulletType2Controller extends BulletController {
     this.wobble = this.WOBBLE_LIMIT;
     Nakama.game.physics.enable(this, Phaser.Physics.ARCADE);
     this.sprite.anchor.setTo(0.5, 0.5);
+    this.sprite.y = y - this.sprite.height + 10;
     Nakama.game.add.tween(this)
       .to({
           wobble: -this.WOBBLE_LIMIT
@@ -17,7 +18,8 @@ class BulletType2Controller extends BulletController {
         this.WOBBLE_SPEED, Phaser.Easing.Sinusoidal.InOut, true, 0,
         Number.POSITIVE_INFINITY, true
       );
-    
+    this.sprite.rotation -=  Nakama.game.math.degToRad(90);
+    this.lastTargetAngle = 0;
   }
   update() {
     if (this.enemy != null) {
@@ -42,15 +44,55 @@ class BulletType2Controller extends BulletController {
           if (Math.abs(delta) < Nakama.game.math.degToRad(this.TURN_RATE)) {
             this.sprite.rotation = targetAngle;
           }
+
+          this.lastTargetAngle = targetAngle;
         }
 
         this.sprite.body.velocity.x = Math.cos(this.sprite.rotation) * this.BULLET_SPEED;
         this.sprite.body.velocity.y = Math.sin(this.sprite.rotation) * this.BULLET_SPEED;
       }else{
-        this.sprite.body.velocity.y = -this.BULLET_SPEED;
+        var targetAngle = this.lastTargetAngle;
+        targetAngle += Nakama.game.math.degToRad(this.wobble);
+        if (this.sprite.rotation !== targetAngle) {
+          var delta = targetAngle - this.sprite.rotation;
+
+          if (delta > Math.PI) delta -= Math.PI * 2;
+          if (delta < -Math.PI) delta += Math.PI * 2;
+
+          if (delta > 0) {
+            this.sprite.angle += this.TURN_RATE;
+          } else {
+            this.sprite.angle -= this.TURN_RATE;
+          }
+
+          if (Math.abs(delta) < Nakama.game.math.degToRad(this.TURN_RATE)) {
+            this.sprite.rotation = targetAngle;
+          }
+        }
+        this.sprite.body.velocity.x = Math.cos(this.sprite.rotation) * this.BULLET_SPEED;
+        this.sprite.body.velocity.y = Math.sin(this.sprite.rotation) * this.BULLET_SPEED;
       }
     } else {
-      this.sprite.body.velocity.y = -this.BULLET_SPEED;
+      var targetAngle = Nakama.game.math.degToRad(-90);
+      targetAngle += Nakama.game.math.degToRad(this.wobble);
+      if (this.sprite.rotation !== targetAngle) {
+        var delta = targetAngle - this.sprite.rotation;
+
+        if (delta > Math.PI) delta -= Math.PI * 2;
+        if (delta < -Math.PI) delta += Math.PI * 2;
+
+        if (delta > 0) {
+          this.sprite.angle += this.TURN_RATE;
+        } else {
+          this.sprite.angle -= this.TURN_RATE;
+        }
+
+        if (Math.abs(delta) < Nakama.game.math.degToRad(this.TURN_RATE)) {
+          this.sprite.rotation = targetAngle;
+        }
+      }
+      this.sprite.body.velocity.x = Math.cos(this.sprite.rotation) * this.BULLET_SPEED;
+      this.sprite.body.velocity.y = Math.sin(this.sprite.rotation) * this.BULLET_SPEED;
     }
   }
 }
