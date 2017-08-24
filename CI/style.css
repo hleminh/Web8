@@ -1,0 +1,51 @@
+p {
+  color: red;
+}
+
+h1 {
+  background: blue;
+}
+
+.underlined-text {
+  text-decoration: underline;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+#top {
+  font-family: "Comic Sans MS"
+}
+
+[href] {
+  color: yellow;
+}
+
+[href="#top"] {
+  font-size: 24px;
+}
+
+ul li {
+  list-style: square;
+}
+
+ul>li {
+  list-style: upper-alpha;
+}
+
+li:last-child {
+  font-style: italic;
+}
+
+nav:hover {
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+a:active{
+  color: brown;
+}
+
+input:focus{
+  border: 10px solid red;
+}

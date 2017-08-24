@@ -15,7 +15,7 @@ class EnemyController {
     this.BULLET_DELAY = configs.bullet_delay;
     this.delay = 0;
 
-    this.sprite.anchor = new Phaser.Point(0.5, 0, 5);
+    this.sprite.anchor = new Phaser.Point(0.5, 0.5);
     this.configs.startingX = x;
     this.configs.moveRadius = 250;
 
