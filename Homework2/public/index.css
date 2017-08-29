@@ -1,0 +1,55 @@
+.menu {
+  background: #D5B0AC;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.menu_vertical {
+  margin-top: 20px;
+  display: inline-block;
+  width: 100px;
+}
+
+span {
+  color: #402E2A;
+  font-weight: bold;
+  width: 100px;
+  height: 30px;
+  text-align: center;
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 30px;
+  margin: 0px;
+}
+
+a {
+  color: #402E2A;
+  font-weight: bold;
+  text-decoration: none;
+  display: block;
+}
+
+.menu_vertical>span {
+  border-bottom: 1px solid white;
+}
+
+.menu_vertical>span:last-child {
+  border: 0px;
+}
+
+span:hover {
+  background: #9CD08F;
+  cursor: pointer;
+}
+
+a:hover {
+  color: #FFFFFF;
+}
+
+h1>a:hover {
+  color: red;
+}
+
+h1>a{
+  display: inline;
+}
