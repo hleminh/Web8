@@ -1,0 +1,98 @@
+.menu {
+  background: #D5B0AC;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.menu_vertical {
+  margin-top: 20px;
+  display: inline-block;
+  width: 100px;
+}
+
+span {
+  color: #402E2A;
+  font-weight: bold;
+  width: 100px;
+  height: 30px;
+  text-align: center;
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 30px;
+  margin: 0px;
+}
+
+a {
+  color: #402E2A;
+  font-weight: bold;
+  text-decoration: none;
+  display: block;
+}
+
+.menu_vertical>span {
+  border-bottom: 1px solid white;
+}
+
+.menu_vertical>span:last-child {
+  border: 0px;
+}
+
+span:hover {
+  background: #9CD08F;
+  cursor: pointer;
+}
+
+a:hover {
+  color: #FFFFFF;
+}
+
+h1 {
+  text-align: center;
+  font-size: 50px;
+}
+
+.yes_no {
+  text-align: center;
+}
+
+.yes_no input[type='submit'] {
+  width: 200px;
+  height: 100px;
+  font-size: 40px;
+  margin: 50px;
+  margin-top: 10px;
+}
+
+.ask {
+  text-align: center;
+}
+
+.ask label {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.ask input[type='text'] {
+  width: 550px;
+  height: 50px;
+  margin: 10px;
+  margin-top: 20px;
+  font-size: 40px;
+  text-align: center;
+}
+
+.ask input[type='submit'] {
+  width: 200px;
+  height: 100px;
+  margin-top: 20px;
+  font-size: 40px;
+}
+
+.result {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.result h2 {
+  font-size: 40px;
+}
