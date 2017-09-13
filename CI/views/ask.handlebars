@@ -3,9 +3,12 @@
     <form class="" action="api/question" method="post">
       <label for="question"><h1>Hãy hỏi cộng đồng một câu hỏi đúng/sai hoặc có/không</h1></label>
       <br></br>
-      <textarea class="form-control" rows="5" name="question" id="question"></textarea>
+      <textarea id="question_tf" class="form-control" rows="5" name="question" id="question"  maxlength="200"></textarea>
+      <p class="help-block">Còn <span id="text_counter">200</span>/200 ký tự.</p>
       <br></br>
       <input class="btn btn-primary" type="submit" name="submit" value="Gửi"></input>
     </form>
   </div>
 </div>
+<script type="text/javascript" src="/ask.js">
+</script>
