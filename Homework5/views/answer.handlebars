@@ -1,0 +1,17 @@
+<div class="container-fluid" id="answer-container">
+  <div class="form-group" id="answer-form">
+    {{#if question.question}}
+      <form class="" action="api/question/{{question.id}}" method="post">
+        <h1>{{question.question}}</h1>
+        <label id="label-no" for="no" class="btn btn-danger"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"/> Sai/Không/Trái</label>
+        <input id="no" type="submit" name="answer" value="no" class="hidden" />
+        <label id="label-yes" for="yes" class="btn btn-primary"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"/> Đúng/Có/Phải</label>
+        <input id="yes" type="submit" name="answer" value="yes" class="hidden" />
+      </form>
+      <a id="answer-btn" class="btn btn-default" href="/question/{{question.id}}">Kết quả vote</a></span>
+      <a id="answer-btn" class="btn btn-default" href="/">Câu hỏi khác</a>
+    {{else}}
+      <h1>Không có câu hỏi nào trong cơ sở dữ liệu.</h1>
+    {{/if}}
+  </div>
+</div>

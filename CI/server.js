@@ -1,10 +1,11 @@
 const express = require("express");
 const handlebars = require('express-handlebars');
 const fs = require("./fileController");
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const apiRouter = require("./apiRouter");
 const questionRouter = require("./questionRouter");
-const filename = "test.txt";
+const config = require("./config.json");
 
 let app = express();
 
@@ -24,11 +25,20 @@ app.use('/api', apiRouter);
 
 app.use('/question', questionRouter);
 
+mongoose.connect(config.connectionString, (err) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('connect success');
+  }
+});
+
 app.get('/', (req, res) => {
-  var randomQuestion = fs.readFromDatabase();
-  res.render('answer', {
-    question: randomQuestion,
-    layout: 'answerLayout'
+  fs.readFromDatabase((randomQuestion) => {
+    res.render('answer', {
+      question: randomQuestion,
+      layout: 'answerLayout'
+    });
   });
 });
 
