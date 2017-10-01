@@ -1,9 +1,9 @@
 const express = require('express');
 const Router = express.Router();
-const fs = require('./fileController');
+const questionController = require('./questionController');
 
 Router.get('/:id', (req, res) => {
-  var question = fs.getQuestionById(req.params.id, (question) => {
+  var question = questionController.getQuestionById(req.params.id, (question) => {
     res.render('result', {
       question: question.question,
       yes: question.yes,

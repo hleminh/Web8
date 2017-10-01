@@ -1,6 +1,6 @@
 const express = require("express");
 const handlebars = require('express-handlebars');
-const fs = require("./module/question/fileController");
+const questionController = require("./module/question/questionController");
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const apiRouter = require("./module/question/apiRouter");
@@ -34,7 +34,7 @@ mongoose.connect(config.connectionString, (err) => {
 });
 
 app.get('/', (req, res) => {
-  fs.readFromDatabase((randomQuestion) => {
+  questionController.readFromDatabase((randomQuestion) => {
     res.render('answer', {
       question: randomQuestion,
       layout: 'answerLayout'

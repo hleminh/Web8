@@ -2,21 +2,6 @@ const fs = require("fs");
 const questionModel = require("./questionSchema")
 let currentId;
 
-
-const saveFile = (filename, data) => {
-  fs.writeFileSync(filename, data);
-}
-
-const readFile = (filename, callback) => {
-  return fs.readFile(filename, "utf-8", (err, data) => {
-    callback(data);
-  });
-}
-
-const readFileSync = (filename) => {
-  return fs.readFileSync(filename, "utf-8");
-}
-
 const insertToDatabase = (question, callback) => {
 
   newQuestion = {
@@ -27,7 +12,6 @@ const insertToDatabase = (question, callback) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(question);
       currentId = question._id;
       callback(question);
     }
@@ -46,7 +30,6 @@ const readFromDatabase = (callback) => {
         } else {
           if (result != null) {
             currentId = result._id;
-            console.log(result);
           }
           callback(result);
         }
@@ -62,7 +45,6 @@ const getQuestionById = (id, callback) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(result);
       callback(result);
     }
   });
@@ -87,9 +69,6 @@ const getCurrentId = () => {
 }
 
 module.exports = {
-  saveFile,
-  readFile,
-  readFileSync,
   insertToDatabase,
   readFromDatabase,
   getQuestionById,
